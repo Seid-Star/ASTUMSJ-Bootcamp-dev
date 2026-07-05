@@ -37,8 +37,6 @@ No frameworks. No dependencies. Just open it and go.
   <img src="./preview.png" alt="To-Do App Screenshot">
 </div>
 
-> 💡 Add a screenshot or GIF named `preview.png` to the repo root so it renders here on GitHub.
-
 ---
 
 ## 🌐 Live Demo
