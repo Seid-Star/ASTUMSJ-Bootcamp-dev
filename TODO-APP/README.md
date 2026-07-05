@@ -34,7 +34,7 @@ No frameworks. No dependencies. Just open it and go.
 ## 🖥️ Preview
 
 <div align="center">
-  <img src="preview.png.png" alt="To-Do List app screenshot" width="480">
+  <img src="preview.png" alt="To-Do List app screenshot" width="480">
 </div>
 
 > 💡 Add a screenshot or GIF named `preview.png` to the repo root so it renders here on GitHub.
@@ -105,7 +105,7 @@ GitHub: https://github.com/Seid-Star
 
 LinkedIn: https://www.linkedin.com/in/seid-jemal-b244b0419
 
-Email: seidjemalali@gmail.com
+Email: seidjemalali11@gmail.com
 
 ## 📄 License
 
