@@ -8,11 +8,9 @@ Users can browse blog posts fetched from a live API, view full post details with
 
 ## 🔗 Links
 
-🚀 Live Demo:
-https://blog-project-rose-tau.vercel.app/
+🌍 **Live Website:** https://blog-project-rose-tau.vercel.app/
 
-💻 GitHub Repository:
-github.com/Seid-Star/ASTUMSJ-Bootcamp-dev
+💻 **GitHub Repository:** https://github.com/Seid-Star/ASTUMSJ-Bootcamp-dev
 
 ---
 
@@ -24,19 +22,19 @@ github.com/Seid-Star/ASTUMSJ-Bootcamp-dev
 
 Browse blog posts, filter by tags, and view likes/comments.
 
-![Home Page](\Screenshot\photo_2026-07-19_01-53-50.jpg)
+![Home Page](/BLOG-Project/public/Screenshot/photo_2026-07-19_01-53-50.jpg)
 
 ## ✍️ Create Post
 
 Create a new blog post with form validation.
 
-![Create Post](\Screenshot\photo_2026-07-19_01-54-03.jpg)
+![Create Post](/BLOG-Project/public/Screenshot/photo_2026-07-19_01-54-03.jpg)
 
 ## 🔖 Bookmarks
 
 View and manage saved favorite posts.
 
-![Bookmarks](\Screenshot\photo_2026-07-19_01-54-09.jpg)
+![Bookmarks](/BLOG-Project/public/Screenshot/photo_2026-07-19_01-54-09.jpg)
 
 ---
 
@@ -127,7 +125,7 @@ src/
 ## Clone the repository
 
 ```bash
-git clone github.com/Seid-Star/ASTUMSJ-Bootcamp-dev
+git clone https://github.com/Seid-Star/ASTUMSJ-Bootcamp-dev.git
 ```
 
 ## Navigate into the project folder
@@ -230,3 +228,8 @@ Possible future features:
 # 👨‍💻 Author
 
 Built by **Seid Jemal** using React.
+
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![Vite](https://img.shields.io/badge/Vite-7-purple?logo=vite)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38BDF8?logo=tailwind-css)
+![License](https://img.shields.io/badge/License-MIT-green)
