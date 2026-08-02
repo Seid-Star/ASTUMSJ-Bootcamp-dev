@@ -9,10 +9,10 @@ Users can create, view, update, filter, complete, and delete tasks through a cle
 ## 🌐 Live Demo
 
 **Frontend:**
-`https://taskmanagerapi-chi.vercel.app/`
+https://taskmanagerapi-chi.vercel.app/
 
 **Backend API:**
-`https://task-manager-api-7wm6.onrender.com`
+https://task-manager-api-7wm6.onrender.com
 
 ---
 
@@ -150,7 +150,7 @@ curl -X DELETE https://task-manager-api-7wm6.onrender.com/api/tasks/1
 ### Backend
 
 Deployed using: **Render**
-URL: `https://task-manager-api-7wm6.onrender.com`
+URL: https://task-manager-api-7wm6.onrender.com
 
 Set the following environment variables in the Render dashboard:
 
@@ -162,7 +162,7 @@ APP_NAME=Task Manager API
 ### Frontend
 
 Deployed using: **Vercel**
-URL: `https://taskmanagerapi-chi.vercel.app/`
+URL: https://taskmanagerapi-chi.vercel.app/
 
 ---
 
