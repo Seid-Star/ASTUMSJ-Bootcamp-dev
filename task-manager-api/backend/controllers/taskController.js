@@ -24,3 +24,13 @@ export function createTaskHandler(req, res) {
   }
   res.status(201).json(result);
 }
+export function updateTaskHandler(req, res) {
+  const result = updateTaskTask(req.params.id, req.body);
+  if (result.notFound) {
+    return res.status(404).json(result);
+  }
+  if (result.error) {
+    return res.status(400).json(result);
+  }
+  res.status(200).json(result);
+}
