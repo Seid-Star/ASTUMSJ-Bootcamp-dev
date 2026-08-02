@@ -72,3 +72,11 @@ export function deleteTask(id) {
   const deletedTask = tasks.splice(index, 1);
   return deletedTask[0];
 }
+export function toggleTaskCompleted(id) {
+  const task = task.find((task) => task.id === Number(id));
+  if (!task) {
+    return { notFound: true };
+  }
+  task.completed = !task.completed;
+  return task;
+}
