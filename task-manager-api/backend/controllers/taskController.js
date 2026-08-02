@@ -34,6 +34,14 @@ export function updateTaskHandler(req, res) {
   }
   res.status(200).json(result);
 }
+export function deleteTaskHandler(req, res) {
+  const result = updateTaskTask(req.params.id);
+  if (result.notFound) {
+    return res.status(404).json(result);
+  }
+  res.status(200).json(result);
+}
+
 export function toogleTask(req, res) {
   const result = toggleTaskCompleted(req.params.id);
   if (result.notFound) {
