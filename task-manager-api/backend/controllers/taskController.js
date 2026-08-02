@@ -5,7 +5,7 @@ import {
   updateTask,
   deleteTask,
   toggleTaskCompleted,
-} from "..sevices/taskService.js";
+} from "../sevices/taskSevice.js";
 export function getTasks(req, res) {
   const tasks = getAllTasks(req.query);
   res.status(200).json(tasks);

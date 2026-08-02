@@ -5,5 +5,13 @@ import {
   createTaskHandler,
   updateTaskHandler,
   deleteTaskHandler,
-  toggleTaskCompleted,
-} from "..sevices/taskService.js";
+  toggleTask,
+} from "../controllers/taskController.js";
+const router = express.Router();
+router.get("/", getTasks);
+router.get("/:id", getTask);
+router.post("/", createTaskHandler);
+router.patch("/:id/toogle", toggleTask);
+router.patch("/:id", deleteTaskHandler);
+
+export default router;
