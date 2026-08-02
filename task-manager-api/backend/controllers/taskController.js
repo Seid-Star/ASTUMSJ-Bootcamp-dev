@@ -17,3 +17,10 @@ export function getTask(req, res) {
   }
   res.status(200).json(result);
 }
+export function createTaskHandler(req, res) {
+  const result = createTask(req.body);
+  if (result.error) {
+    return res.status(404).json(result);
+  }
+  res.status(201).json(result);
+}
