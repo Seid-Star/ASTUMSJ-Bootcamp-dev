@@ -19,5 +19,3 @@ function getTaskById(id) {
   }
   return task;
 }
-function createTask(taskData) {
-    if (!taskData.title || typeof taskData.title!=="string") {
