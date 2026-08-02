@@ -21,7 +21,7 @@ const tasks = [
   },
 ];
 let nextId = 5;
-module.exports = {
-  tasks,
-  nextId,
-};
+export function getNextId() {
+  return nextId++;
+}
+export { tasks };

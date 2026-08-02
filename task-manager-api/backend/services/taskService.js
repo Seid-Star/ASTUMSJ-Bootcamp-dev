@@ -1,8 +1,4 @@
-import { error } from "node:console";
-import { title } from "node:process";
-
-const { type } = require("node:os");
-const { tasks, getnextId } = require("../data/tasksData");
+import { tasks, getNextId } from "../data/tasksData.js";
 export function getAllTasks(filters = {}) {
   let result = [...tasks];
   if (filters.priority) {
@@ -18,7 +14,7 @@ export function getAllTasks(filters = {}) {
 export function getTaskById(id) {
   const task = tasks.find((task) => task.id === Number(id));
   if (!task) {
-    throw new Error(`Task with id ${id} not found`);
+    return { notFound: true };
   }
   return task;
 }
@@ -33,7 +29,7 @@ export function createTask(data) {
   }
 
   const newTask = {
-    id: getnextId(),
+    id: getNextId(),
     title: title.trim(),
     completed: false,
     priority,
@@ -50,7 +46,7 @@ export function updateTask(id, updates) {
     if (typeof updates.title !== "string" || updates.title.trim == "") {
       return { error: "invalid title" };
     }
-    task.title == updates.title.trim();
+    task.title = updates.title.trim();
   }
   if (updates.priority !== undefined) {
     const allowedPriority = ["low", "medium", "high"];
@@ -60,7 +56,7 @@ export function updateTask(id, updates) {
     task.priority = updates.priority;
   }
   if (updates.completed !== undefined) {
-    task.completed == updates.completed;
+    task.completed = updates.completed;
   }
   return task;
 }
@@ -73,7 +69,7 @@ export function deleteTask(id) {
   return deletedTask[0];
 }
 export function toggleTaskCompleted(id) {
-  const task = task.find((task) => task.id === Number(id));
+  const task = tasks.find((task) => task.id === Number(id));
   if (!task) {
     return { notFound: true };
   }
