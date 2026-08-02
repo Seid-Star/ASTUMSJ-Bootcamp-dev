@@ -1,3 +1,6 @@
+import { error } from "node:console";
+import { title } from "node:process";
+
 const { type } = require("node:os");
 const { tasks, getnextId } = require("../data/tasksData");
 export function getAllTasks(filters = {}) {
@@ -37,4 +40,27 @@ export function createTask(data) {
   };
   tasks.push(newTask);
   return newTask;
+}
+export function updateTask(id, updates) {
+  const task = tasks.find((task) => task.id === Number(id));
+  if (!task) {
+    return { notFound: true };
+  }
+  if (updates.title != undefined) {
+    if (typeof updates.title !== "string" || updates.title.trim == "") {
+      return { error: "invalid title" };
+    }
+    task.title == updates.title.trim();
+  }
+  if (updates.priority !== undefined) {
+    const allowedPriority = ["low", "medium", "high"];
+    if (!allowedPriority.includes(updates.priority)) {
+      return { error: "Invalid priority" };
+    }
+    task.priority = updates.priority;
+  }
+  if (updates.completed !== undefined) {
+    task.completed == updates.completed;
+  }
+  return task;
 }
