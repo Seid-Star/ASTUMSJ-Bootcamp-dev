@@ -57,4 +57,24 @@ const signup = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { signup };
+const login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email }).select("+password");
+    if (!user || !(await user.comparePassword(password))) {
+      return res.status(401).json({
+        message: "Invalid credentials",
+      });
+    }
+    const token = generateToken(user._id, user.role);
+    const userResponse = user.toObject();
+    delete userResponse.password;
+    res.status(200).json({
+      user: userResponse,
+      token,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports = { signup, login };
