@@ -30,6 +30,19 @@ const userSchema = new mongoose.Schema(
       enum: ["admin", "supervisor", "user"],
       default: "user",
     },
+    theme: {
+      type: String,
+      enum: ["light", "dark"],
+      default: "light",
+    },
+    autoAddCalendarEvents: {
+      type: Boolean,
+      default: true,
+    },
+    phonePublic: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
