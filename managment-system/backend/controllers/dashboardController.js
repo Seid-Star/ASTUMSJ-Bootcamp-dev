@@ -1,3 +1,29 @@
+const Member = require("../models/Member");
+const Attendance = require("../models/Attendance");
+const getDashboardStats = async (req, res, next) => {
+  try {
+    const totalMembers = await Member.countDocuments();
+    const divisions = await Member.distinct("division");
+    const totalDivisions = divisions.length;
+    const totalAttendance = await Attendance.countDocuments();
+    const presentAttendance = await Attendance.countDocuments({
+      status: "Present",
+    });
+    const attendanceRate =
+      totalAttendance === 0
+        ? 0
+        : Math.round((presentAttendance / totalAttendance) * 100);
+    const upcomingSessions = 0;
+    res.status(200).json({
+      totalMembers,
+      totalDivisions,
+      attendanceRate,
+      upcomingSessions,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 const getAttendanceOverview = async (req, res, next) => {
   try {
     const currentYear = new Date().getFullYear();
