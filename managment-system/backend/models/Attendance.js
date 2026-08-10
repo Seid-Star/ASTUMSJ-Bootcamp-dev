@@ -20,6 +20,10 @@ const attendanceSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    excuseReason: {
+      type: String,
+      default: "",
+    },
     group: {
       type: String,
       default: "Group 1",

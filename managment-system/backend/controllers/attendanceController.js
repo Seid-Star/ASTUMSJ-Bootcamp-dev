@@ -60,6 +60,7 @@ const markAttendance = async (req, res, next) => {
           member: item.memberId,
           status: item.status,
           excused: item.excused ?? false,
+          excuseReason: item.excuseReason || "",
           group: req.body.group || "Group 1",
           markedBy: req.user._id,
           date: new Date(),
