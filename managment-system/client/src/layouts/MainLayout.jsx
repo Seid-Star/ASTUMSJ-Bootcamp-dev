@@ -121,9 +121,7 @@ const MainLayout = () => {
               <Bell size={21} />
             </button>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-semibold text-white">
-                {user?.fullName?.charAt(0)}
-              </div>
+              <Avatar name={user?.fullName} src={user?.avatar} />
               <div>
                 <p className="font-medium">{user?.fullName}</p>
                 <p className="text-sm capitalize text-gray-500">{user?.role}</p>
