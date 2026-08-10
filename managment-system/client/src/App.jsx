@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import AllMembers from "./pages/AllMembers";
 import MainLayout from "./layouts/MainLayout";
+import Attendance from "./pages/Attendance";
 function App() {
   return (
     <BrowserRouter>
@@ -16,7 +17,10 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route element={<MainLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+
               <Route path="/members" element={<AllMembers />} />
+
+              <Route path="/attendance" element={<Attendance />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/login" replace />} />
