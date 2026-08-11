@@ -1,52 +1,45 @@
 const User = require("../models/User");
+
 const getSettings = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).select(
       "theme autoAddCalendarEvents phonePublic",
     );
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    }
+
     res.status(200).json({
-      theme: user.theme,
-      autoAddCalendarEvents: user.autoAddCalendarEvents,
-      phonePublic: user.phonePublic,
+      success: true,
+      data: user,
     });
   } catch (error) {
     next(error);
   }
 };
+
 const updateSettings = async (req, res, next) => {
   try {
     const { theme, autoAddCalendarEvents, phonePublic } = req.body;
-    const user = await User.findById(req.user._id);
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
+
+    if (theme && !["light", "dark"].includes(theme)) {
+      return res.status(400).json({
+        success: false,
+        message: "Theme must be either 'light' or 'dark'",
       });
     }
-    if (theme !== undefined) {
-      user.theme = theme;
-    }
-    if (autoAddCalendarEvents !== undefined) {
-      user.autoAddCalendarEvents = autoAddCalendarEvents;
-    }
-    if (phonePublic !== undefined) {
-      user.phonePublic = phonePublic;
-    }
-    await user.save();
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { theme, autoAddCalendarEvents, phonePublic },
+      { new: true, runValidators: true },
+    ).select("theme autoAddCalendarEvents phonePublic fullName email role");
+
     res.status(200).json({
-      theme: user.theme,
-      autoAddCalendarEvents: user.autoAddCalendarEvents,
-      phonePublic: user.phonePublic,
+      success: true,
+      message: "Settings updated successfully",
+      data: updatedUser,
     });
   } catch (error) {
     next(error);
   }
 };
-module.exports = {
-  getSettings,
-  updateSettings,
-};
+
+module.exports = { getSettings, updateSettings };

@@ -2,32 +2,40 @@ const Member = require("../models/Member");
 const Attendance = require("../models/Attendance");
 const getDashboardStats = async (req, res, next) => {
   try {
-    const totalMembers = await Member.countDocuments();
-    const divisions = await Member.distinct("division");
+    const [totalMembers, divisions, totalAttendance, presentAttendance] =
+      await Promise.all([
+        Member.countDocuments(),
+        Member.distinct("division"),
+        Attendance.countDocuments(),
+        Attendance.countDocuments({ status: "Present" }),
+      ]);
+
     const totalDivisions = divisions.length;
-    const totalAttendance = await Attendance.countDocuments();
-    const presentAttendance = await Attendance.countDocuments({
-      status: "Present",
-    });
     const attendanceRate =
       totalAttendance === 0
         ? 0
         : Math.round((presentAttendance / totalAttendance) * 100);
     const upcomingSessions = 0;
+
     res.status(200).json({
-      totalMembers,
-      totalDivisions,
-      attendanceRate,
-      upcomingSessions,
+      success: true,
+      data: {
+        totalMembers,
+        totalDivisions,
+        attendanceRate,
+        upcomingSessions,
+      },
     });
   } catch (error) {
     next(error);
   }
 };
+
 const getAttendanceOverview = async (req, res, next) => {
   try {
     const currentYear = new Date().getFullYear();
     const previousYear = currentYear - 1;
+
     const data = await Attendance.aggregate([
       {
         $match: {
@@ -57,11 +65,17 @@ const getAttendanceOverview = async (req, res, next) => {
           year: "$_id.year",
           month: "$_id.month",
           rate: {
-            $round: [
-              {
-                $multiply: [{ $divide: ["$present", "$total"] }, 100],
-              },
+            $cond: [
+              { $eq: ["$total", 0] },
               0,
+              {
+                $round: [
+                  {
+                    $multiply: [{ $divide: ["$present", "$total"] }, 100],
+                  },
+                  0,
+                ],
+              },
             ],
           },
         },
@@ -73,6 +87,7 @@ const getAttendanceOverview = async (req, res, next) => {
         },
       },
     ]);
+
     const months = [
       "Jan",
       "Feb",
@@ -87,6 +102,7 @@ const getAttendanceOverview = async (req, res, next) => {
       "Nov",
       "Dec",
     ];
+
     const overview = months.map((month, index) => {
       const thisYearData = data.find(
         (item) => item.year === currentYear && item.month === index + 1,
@@ -94,17 +110,23 @@ const getAttendanceOverview = async (req, res, next) => {
       const lastYearData = data.find(
         (item) => item.year === previousYear && item.month === index + 1,
       );
+
       return {
         month,
         thisYear: thisYearData?.rate || 0,
         lastYear: lastYearData?.rate || 0,
       };
     });
-    res.status(200).json(overview);
+
+    res.status(200).json({
+      success: true,
+      data: overview,
+    });
   } catch (error) {
     next(error);
   }
 };
+
 module.exports = {
   getDashboardStats,
   getAttendanceOverview,

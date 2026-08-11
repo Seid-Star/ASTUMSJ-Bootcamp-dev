@@ -1,38 +1,54 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+
 const userSchema = new mongoose.Schema(
   {
     fullName: {
       type: String,
-      required: true,
+      required: [true, "Full name is required"],
+      trim: true,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is required"],
       unique: true,
       lowercase: true,
+      trim: true,
+      match: [
+        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/,
+        "Please provide a valid email address",
+      ],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password is required"],
+      minlength: [8, "Password must be at least 8 characters"],
       select: false,
     },
     division: {
       type: String,
+      enum: ["development", "cyber", "ai", "networking"], // Check exact casing here!
       required: true,
     },
     year: {
       type: String,
-      required: true,
+      required: [true, "Year is required"],
+      trim: true,
     },
     role: {
       type: String,
-      enum: ["admin", "supervisor", "user"],
+      enum: {
+        values: ["admin", "supervisor", "user"],
+        message: "{VALUE} is not a valid role",
+      },
       default: "user",
     },
     theme: {
       type: String,
-      enum: ["light", "dark"],
+      enum: {
+        values: ["light", "dark"],
+        message: "{VALUE} is not a valid theme",
+      },
       default: "light",
     },
     autoAddCalendarEvents: {
@@ -56,8 +72,11 @@ userSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
-userSchema.methods.comparePassword = async function (candidate) {
-  return await bcrypt.compare(candidate, this.password);
+
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
+
 const User = mongoose.model("User", userSchema);
+
 module.exports = User;
